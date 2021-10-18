@@ -10,12 +10,18 @@ Eurofull_page = requests.get(EURO_RUB, headers=headers)
 
 
 Dollarsoup = BeautifulSoup(Dollarfull_page.content, 'html.parser')
+Eurosoup = BeautifulSoup(Eurofull_page.content, 'html.parser')
 
-
-
-Dollarconvert = Dollarsoup.find_all("tr",{})
-
-
+Euroconvert = Eurosoup.find_all("tr")
+Dollarconvert = Dollarsoup.find_all("tr")
+a=str(Dollarconvert[11]).split() # Разбиваем строку на элементы
+b=str(a[6]) # Выбираем 6 элемент строки
+t=b[4:11] # Делаем срез (остаются символы с 4 по 11)
+a1=str(Euroconvert[12]).split()
+b1=str(a1[5])
+t1=b1[4:11]
+print("Курс одного доллара =" + " " + t + " " + "рублей")
+print("Курс одного евро =" + " " + t1 + " " + "рублей")
 
 
 
