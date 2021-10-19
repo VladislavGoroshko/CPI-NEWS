@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 
 root = Tk()
 
@@ -8,9 +9,8 @@ def btn_click():
     password = passField.get()
 
     info_str= f'Данные: {str(login)}, {str(password)}'
-    messagebox.showinfo(title='Название', message = '')
 
-
+    messagebox.showinfo(title='Название', message=info_str)
     #окно с ошибкой
     #messagebox.showerror(title='', message='Ошибка')
 
@@ -30,15 +30,15 @@ frame.place(relwidth=1, relheight=1)
 
 title = Label(frame, text = "CPI-NEWS", bg = 'gray', font= 80)
 title.pack()
-btn= Button(frame, text = 'Пробная кнопка', bg = 'green', command=btn_click)
+btn= Button(frame, text = 'Введите ваш логин и пароль', bg = 'green', command=btn_click)
 btn.pack()
 
 
 
-loginInput = Entry(frame, bg ="black")
+loginInput = Entry(frame, bg ="grey")
 loginInput.pack()
 
-passField = Entry(frame, bg = "black", show='*')
+passField = Entry(frame, bg = "grey", show='*')
 passField.pack()
 
 
