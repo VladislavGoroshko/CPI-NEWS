@@ -1,3 +1,4 @@
+# Спринт-1, разработчик - Зубович Н.В., вывод погоды.
 import requests  # Модуль для обработки URL
 from bs4 import BeautifulSoup  # Модуль для работы с HTML
 import time  # Модуль для остановки программы
