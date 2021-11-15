@@ -1,4 +1,5 @@
-import requests  # Url
+# Спринт №2,разработчик - Горлинский К.О., вывод новостей из группы в вк
+import requests  # Url 
 from bs4 import BeautifulSoup  # Html
 from token import token
 
