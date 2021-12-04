@@ -12,14 +12,7 @@ OmWeathersoup = BeautifulSoup(OmWeatherFullPage.content, 'html.parser')
 OmWeather=OmWeathersoup.find_all('span', {'value unit unit_temperature_c'})
 OmWeatherInfo=OmWeathersoup.find_all('div', {'description gray'})
 WeatherInfo = str(OmWeatherInfo)[str(OmWeatherInfo).find('М'): str(OmWeatherInfo).rfind('<')]
-x=str(OmWeather[0])
-x1=x.split()
-y=str(x1[4])
-if y[3]!='<':
-    yred=y[:2]
-else:
-    yred=y[:3]
-z=str(x1[5])
-zred=z[19:21]
-print('Сейчас в Омске',WeatherInfo.lower())
-print('Температура в Омске на данный момент времени:', yred+zred,'градусов по Цельсию')
+x = str(OmWeather[0]).split()[4][:str(OmWeather[0]).split()[4].rfind('<span')]
+y = str(OmWeather[0]).split()[5][str(OmWeather[0]).split()[5].find(">")+1:str(OmWeather[0]).split()[5].rfind("</")]
+#print('Сейчас в Омске',WeatherInfo.lower())
+print('Температура в Омске на данный момент времени:', x+y ,'градусов по Цельсию')
