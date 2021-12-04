@@ -6,12 +6,6 @@ from datetime import datetime
 import pytz
 from PIL import Image, ImageTk
 
-canv = Canvas(root, width=1880, height=570)
-canv.place(x=0, y=0)
-img=Image.open("bg.png")
-bg=ImageTk.PhotoImage(img)
-canv.create_image(0, 0, anchor=NW, image=bg)
-
 DOLLAR_RUB = 'https://www.cbr.ru/currency_base/daily/' #Ссылка на сайт центробанка РФ где указаны все курсы валют
 EURO_RUB = 'https://www.cbr.ru/currency_base/daily/' #Ссылка на сайт центробанка РФ где указаны все курсы валют
 TENGE_RUB = 'https://www.cbr.ru/currency_base/daily/' #Ссылка на сайт центробанка РФ где указаны все курсы валют
@@ -63,27 +57,33 @@ t4=b4[4:11] # Делаем срез (остаются символы с 4 по 1
 root = Tk()
 root.title('CPI-NEWS')
 
-Value_lbl = Label(text='Курсы валют', font="TimesNewRoman 17")
+canv = Canvas(width=1880, height=570)
+canv.place(x=0, y=0)
+img=Image.open("bg.png")
+bg=ImageTk.PhotoImage(img)
+canv.create_image(0, 0, anchor=NW, image=bg)
 
-USD_lbl1 = Label(text='Курс одного доллара:', font="TimesNewRoman 15")
-USD_ent = Entry(width=7, justify=CENTER, font="TimesNewRoman 15")
-USD_lbl2 = Label(text='рублей', font="TimesNewRoman 15")
+Value_lbl = Label(text='Курсы валют', font="TimesNewRoman 17", bg="RoyalBlue")
 
-EUR_lbl1 = Label(text='Курс одного евро:', font="TimesNewRoman 15")
-EUR_ent = Entry(width=7, justify=CENTER, font="TimesNewRoman 15")
-EUR_lbl2 = Label(text='рублей', font="TimesNewRoman 15")
+USD_lbl1 = Label(text='Курс одного доллара:', font="TimesNewRoman 15", bg="LightSkyBlue")
+USD_ent = Entry(width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
+USD_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
 
-TEN_lbl1 = Label(text='Курс ста теньге:', font="TimesNewRoman 15")
-TEN_ent = Entry(width=7, justify=CENTER, font="TimesNewRoman 15")
-TEN_lbl2 = Label(text='рублей', font="TimesNewRoman 15")
+EUR_lbl1 = Label(text='Курс одного евро:', font="TimesNewRoman 15", bg="LightSkyBlue")
+EUR_ent = Entry(width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
+EUR_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
 
-STER_lbl1 = Label(text='Курс одного фунта стерлингов:', font="TimesNewRoman 15")
-STER_ent = Entry(width=7, justify=CENTER, font="TimesNewRoman 15")
-STER_lbl2 = Label(text='рублей', font="TimesNewRoman 15")
+TEN_lbl1 = Label(text='Курс ста теньге:', font="TimesNewRoman 15", bg="LightSkyBlue")
+TEN_ent = Entry(width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
+TEN_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
 
-GRI_lbl1 = Label(text='Курс десяти украинских гривен:', font="TimesNewRoman 15")
-GRI_ent = Entry(width=7, justify=CENTER, font="TimesNewRoman 15")
-GRI_lbl2 = Label(text='рублей', font="TimesNewRoman 15")
+STER_lbl1 = Label(text='Курс одного фунта стерлингов:', font="TimesNewRoman 15", bg="LightSkyBlue")
+STER_ent = Entry(width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
+STER_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
+
+GRI_lbl1 = Label(text='Курс десяти украинских гривен:', font="TimesNewRoman 15", bg="LightSkyBlue")
+GRI_ent = Entry(width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
+GRI_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
 
 USD_ent.insert(END, t)
 EUR_ent.insert(END, t1)
@@ -115,7 +115,6 @@ OmWeatherFullPage = requests.get(WeatherOmsk, headers=headers)  # Вывод п�
 OmWeathersoup = BeautifulSoup(OmWeatherFullPage.content, 'html.parser')
 
 OmWeather=OmWeathersoup.find_all('span', {'value unit unit_temperature_c'})
-OmWeatherInfo=OmWeathersoup.find_all('div', {'description gray'})
 x=str(OmWeather[0])
 x1=x.split()
 y=str(x1[4])
@@ -126,17 +125,17 @@ else:
 z=str(x1[5])
 zred=z[19:21]
 
-Weather_lbl = Label(text='Погода', font="TimesNewRoman 17")
-Temp_lbl1 = Label(text='Температура в Омске на данный момент времени:', font="TimesNewRoman 15")
-Temp_ent = Entry(width=6, justify=CENTER, font="TimesNewRoman 15")
-Temp_lbl2 = Label(text='градусов по Цельсию', font="TimesNewRoman 15")
+Weather_lbl = Label(text='Погода', font="TimesNewRoman 17", bg="RoyalBlue")
+Temp_lbl1 = Label(text='Температура в Омске на данный момент времени:', font="TimesNewRoman 15", bg="LightSkyBlue")
+Temp_ent = Entry(width=6, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
+Temp_lbl2 = Label(text='градусов по Цельсию', font="TimesNewRoman 15", bg="LightSkyBlue")
 
 Temp_ent.insert(END, yred+zred)
 
 Weather_lbl.grid(row=7, column=0, columnspan=3, pady=(5,0))
 Temp_lbl1.grid(row=8, column=0)
 Temp_ent.grid(row=8, column=1)
-Temp_lbl2.grid(row=8, column=2)
+Temp_lbl2.grid(row=8, column=2, padx=(0,5))
 
 VK_CONFIG = {
     "domain": "https://api.vk.com/method",
@@ -151,8 +150,8 @@ ss = -71122446
 zapros = f'{domain}/wall.get?access_token={access_token}&owner_id={ss}&count=2&v={v}'
 response = requests.get(zapros)
 
-News_lbl = Label(text='Новости', font="TimesNewRoman 17")
-News_txt = Text(height=14, width=100, font="TimesNewRoman 15")
+News_lbl = Label(text='Новости', font="TimesNewRoman 17", bg="RoyalBlue")
+News_txt = Text(height=14, width=100, font="TimesNewRoman 15", bg="LightCyan")
 scrollbar_nws = Scrollbar(root, command=News_txt.yview)
 
 News_txt.insert(END, response.json()['response']['items'][1]['text'])
@@ -160,7 +159,7 @@ News_txt.insert(END, 'Читайте больше новостей в оффиц
 
 News_lbl.grid(row=6, column=3, pady=(5,10))
 News_txt.grid(row=7, column=3, rowspan=9)
-scrollbar_nws.grid(row=7, column=4, rowspan=2, sticky='nws')
+scrollbar_nws.grid(row=7, column=4, rowspan=9, sticky='nws')
 News_txt.configure(yscrollcommand=scrollbar_nws.set)
 
 tz_Omsk = pytz.timezone('Asia/Omsk')
@@ -169,15 +168,15 @@ datetime_Omsk = datetime.now(tz_Omsk)
 
 def update_time():
     Time_lbl2.config(text=f"{datetime.now():%H:%M:%S}")
-    root.after(100, update_time)
+    Time_lbl2.after(100, update_time)
 
-Time_lbl1=Label(text="Время", font="TimesNewRoman 17")
-Time_lbl2=Label(text=f"{datetime.now():%H:%M:%S}", font="TimesNewRoman 30")
+Time_lbl1=Label(text="Время", font="TimesNewRoman 17", bg="RoyalBlue")
+Time_lbl2=Label(text=f"{datetime.now():%H:%M:%S}", font="TimesNewRoman 30", bg="LightCyan")
 Time_lbl1.grid(row=0, column=3, columnspan=2)
 Time_lbl2.grid(row=1, column=3, columnspan=2, rowspan=5)
 update_time()
 
-cred_lbl=Label(text='Графический интерфейс разработан:\n Горошко В.И. Зубович Н.В.\n Все права защищены ©', justify=CENTER, font="TimesNewRoman 10")
+cred_lbl=Label(text='Графический интерфейс разработан:\n Горошко В.И. Зубович Н.В.\n Все права защищены ©', justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
 cred_lbl.grid(row=13,column=0, columnspan=3)
 
 root.mainloop()
