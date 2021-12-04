@@ -1,3 +1,5 @@
+# Goroshko Vladislav - exchange rates 
+# 1 sprint
 import requests # Модуль для обработки URL
 from bs4 import BeautifulSoup # Модуль для работы с HTML
 
@@ -16,7 +18,7 @@ Sterlingfull_page = requests.get(STERLING_RUB,headers=headers) #Вывод по�
 Grivenfull_page = requests.get(GRIVEN_RUB, headers=headers) #Вывод полной разметки HTML страницы гривен
 
 
-
+# 2 sprint
 Dollarsoup = BeautifulSoup(Dollarfull_page.content, 'html.parser') #Парсим страницу через библиотеку BeautifuelSoup
 Eurosoup = BeautifulSoup(Eurofull_page.content, 'html.parser') #Парсим страницу через библиотеку BeautifuelSoup
 Tengesoup = BeautifulSoup(Tengefull_page.content, 'html.parser') #Парсим страницу через библиотеку BeautifuelSoup
@@ -28,7 +30,7 @@ Sterlingconvert = Sterlingsoup.find_all("tr") #Находим нужный дл�
 Tengeconvert = Tengesoup.find_all("tr") #Находим нужный для нас html тэг на сайте центробанка этот тег "tr"
 Euroconvert = Eurosoup.find_all("tr") #Находим нужный для нас html тэг на сайте центробанка этот тег "tr"
 Dollarconvert = Dollarsoup.find_all("tr") #Находим нужный для нас html тэг на сайте центробанка этот тег "tr"
-
+#3 sprint
 a=str(Dollarconvert[11]).split() # Разбиваем строку на элементы
 b=str(a[6]) # Выбираем 6 элемент строки
 t=b[4:11] # Делаем срез (остаются символы с 4 по 11)
