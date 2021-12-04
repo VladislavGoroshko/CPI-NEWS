@@ -65,23 +65,23 @@ canv.create_image(0, 0, anchor=NW, image=bg)
 
 Value_lbl = Label(text='Курсы валют', font="TimesNewRoman 17", bg="RoyalBlue")
 
-USD_lbl1 = Label(text='Курс одного доллара:', font="TimesNewRoman 15", bg="LightSkyBlue")
+USD_lbl1 = Label(text='$ Курс одного доллара:', font="TimesNewRoman 15", bg="LightSkyBlue")
 USD_ent = Entry(width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
 USD_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
 
-EUR_lbl1 = Label(text='Курс одного евро:', font="TimesNewRoman 15", bg="LightSkyBlue")
+EUR_lbl1 = Label(text='€ Курс одного евро:', font="TimesNewRoman 15", bg="LightSkyBlue")
 EUR_ent = Entry(width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
 EUR_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
 
-TEN_lbl1 = Label(text='Курс ста теньге:', font="TimesNewRoman 15", bg="LightSkyBlue")
+TEN_lbl1 = Label(text='₸ Курс ста теньге:', font="TimesNewRoman 15", bg="LightSkyBlue")
 TEN_ent = Entry(width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
 TEN_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
 
-STER_lbl1 = Label(text='Курс одного фунта стерлингов:', font="TimesNewRoman 15", bg="LightSkyBlue")
+STER_lbl1 = Label(text='£ Курс одного фунта стерлингов:', font="TimesNewRoman 15", bg="LightSkyBlue")
 STER_ent = Entry(width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
 STER_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
 
-GRI_lbl1 = Label(text='Курс десяти украинских гривен:', font="TimesNewRoman 15", bg="LightSkyBlue")
+GRI_lbl1 = Label(text='₴ Курс десяти украинских гривен:', font="TimesNewRoman 15", bg="LightSkyBlue")
 GRI_ent = Entry(width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
 GRI_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
 
@@ -113,29 +113,24 @@ headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 
 OmWeatherFullPage = requests.get(WeatherOmsk, headers=headers)  # Вывод полной разметки HTML страницы
 OmWeathersoup = BeautifulSoup(OmWeatherFullPage.content, 'html.parser')
-
+OmWeatherInfo=OmWeathersoup.find_all('div', {'description gray'})
 OmWeather=OmWeathersoup.find_all('span', {'value unit unit_temperature_c'})
-x=str(OmWeather[0])
-x1=x.split()
-y=str(x1[4])
-if y[3]!='<':
-    yred=y[:2]
-else:
-    yred=y[:3]
-z=str(x1[5])
-zred=z[19:21]
-
+x = str(OmWeather[0]).split()[4][:str(OmWeather[0]).split()[4].rfind('<span')]
+y = str(OmWeather[0]).split()[5][str(OmWeather[0]).split()[5].find(">")+1:str(OmWeather[0]).split()[5].rfind("</")]
+z = str(OmWeatherInfo)[str(OmWeatherInfo).find('>')+38:str(OmWeatherInfo).rfind('<')].lower()
 Weather_lbl = Label(text='Погода', font="TimesNewRoman 17", bg="RoyalBlue")
-Temp_lbl1 = Label(text='Температура в Омске на данный момент времени:', font="TimesNewRoman 15", bg="LightSkyBlue")
-Temp_ent = Entry(width=6, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
-Temp_lbl2 = Label(text='градусов по Цельсию', font="TimesNewRoman 15", bg="LightSkyBlue")
-
-Temp_ent.insert(END, yred+zred)
+Temp_lbl1 = Label(text=f'Температура в Омске на данный момент времени: ', font="TimesNewRoman 15", bg="LightSkyBlue", justify = CENTER )
+Temp_lbl2 = Label(text=f'{x+y}°С.', font='TimesNewRoman 15',bg='RoyalBlue')
+Temp_lbl3 = Label(text=f'В Омске {z}', font="TimesNewRoman 15", bg="LightSkyBlue", justify = CENTER)
+Inf_lbl = Label(text= 'В Омске ', font="TimesNewRoman 15", bg = "LightSkyBlue")
+Inf_ent = Entry(width=15,justify = CENTER, font="TimesNewRoman 15", bg ="LightCyan")
+Inf_ent.insert(END, z)
 
 Weather_lbl.grid(row=7, column=0, columnspan=3, pady=(5,0))
 Temp_lbl1.grid(row=8, column=0)
-Temp_ent.grid(row=8, column=1)
-Temp_lbl2.grid(row=8, column=2, padx=(0,5))
+Temp_lbl2.grid(row=8,column=1,sticky = 'w')
+Temp_lbl3.grid(row=9, column=0,sticky = 'w')
+
 
 VK_CONFIG = {
     "domain": "https://api.vk.com/method",
@@ -156,6 +151,7 @@ scrollbar_nws = Scrollbar(root, command=News_txt.yview)
 
 News_txt.insert(END, response.json()['response']['items'][1]['text'])
 News_txt.insert(END, 'Читайте больше новостей в оффициальной группе ОмГТУ: https://vk.com/omskpoliteh')
+News_txt.config(state = DISABLED)
 
 News_lbl.grid(row=6, column=3, pady=(5,10))
 News_txt.grid(row=7, column=3, rowspan=9)
