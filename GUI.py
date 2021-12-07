@@ -55,33 +55,33 @@ b4=str(a4[6]) # Выбираем 6 элемент строки
 t4=b4[4:11] # Делаем срез (остаются символы с 4 по 11)
 
 root = Tk()
-root.title('CPI-NEWS')
+root.title('CPI-NEWS') #Задаем название приложения
 
-canv = Canvas(width=1880, height=570)
+canv = Canvas(width=1880, height=570) #Задаем размеры рамки приложения
 canv.place(x=0, y=0)
-img=Image.open("bg.png")
+img=Image.open("bg.png") #Выбираем задний фон
 bg=ImageTk.PhotoImage(img)
 canv.create_image(0, 0, anchor=NW, image=bg)
 
-Value_lbl = Label(text='Курсы валют', font="TimesNewRoman 17", bg="RoyalBlue")
+Value_lbl = Label(text='Курсы валют', font="TimesNewRoman 17", bg="RoyalBlue") #Создание заголовка курса валют
 
-USD_lbl1 = Label(text='$ Курс одного доллара:', font="TimesNewRoman 15", bg="LightSkyBlue")
+USD_lbl1 = Label(text='$ Курс одного доллара:', font="TimesNewRoman 15", bg="LightSkyBlue") #Создание курса доллара
 USD_ent = Label(text=f'{t}',width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
 USD_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
 
-EUR_lbl1 = Label(text='€ Курс одного евро:', font="TimesNewRoman 15", bg="LightSkyBlue")
+EUR_lbl1 = Label(text='€ Курс одного евро:', font="TimesNewRoman 15", bg="LightSkyBlue") #Создание курса евро
 EUR_ent = Label(text = f'{t1}',width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
 EUR_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
 
-TEN_lbl1 = Label(text='₸ Курс ста теньге:', font="TimesNewRoman 15", bg="LightSkyBlue")
+TEN_lbl1 = Label(text='₸ Курс ста теньге:', font="TimesNewRoman 15", bg="LightSkyBlue") #Создание курса теньге
 TEN_ent = Label(text =f'{t2}',width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
 TEN_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
 
-STER_lbl1 = Label(text='£ Курс одного фунта стерлингов:', font="TimesNewRoman 15", bg="LightSkyBlue")
+STER_lbl1 = Label(text='£ Курс одного фунта стерлингов:', font="TimesNewRoman 15", bg="LightSkyBlue") #Создание курса фунта стерлингов
 STER_ent = Label(text=f'{t3}',width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
 STER_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
 
-GRI_lbl1 = Label(text='₴ Курс десяти украинских гривен:', font="TimesNewRoman 15", bg="LightSkyBlue")
+GRI_lbl1 = Label(text='₴ Курс десяти украинских гривен:', font="TimesNewRoman 15", bg="LightSkyBlue") #Создание курса украинских гривен
 GRI_ent = Label(text = f'{t4}',width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
 GRI_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
 
@@ -102,8 +102,8 @@ GRI_lbl1.grid(row=5, column=0, sticky='e')
 GRI_ent.grid(row=5, column=1)
 GRI_lbl2.grid(row=5, column=2, sticky='w')
 
-WeatherOmsk='https://www.gismeteo.ru/'
-headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'}
+WeatherOmsk='https://www.gismeteo.ru/' #Сайт откуда берем погоду
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'} #Заголовки для передачи вместе с URL
 
 OmWeatherFullPage = requests.get(WeatherOmsk, headers=headers)  # Вывод полной разметки HTML страницы
 OmWeathersoup = BeautifulSoup(OmWeatherFullPage.content, 'html.parser')
@@ -130,7 +130,7 @@ VK_CONFIG = {
     "domain": "https://api.vk.com/method",
     "access_token": "d83d177784092704bd0e22d3cfc18ec180d376a8a30dc0d158b6bb7b5259d78562b8d0145585788c716e0",
     "version": "5.131",
-}
+}   #Токен ВК
 
 domain = VK_CONFIG["domain"]
 access_token = VK_CONFIG["access_token"]
@@ -156,7 +156,7 @@ tz_Omsk = pytz.timezone('Asia/Omsk')
 datetime_Omsk = datetime.now(tz_Omsk)
 #print("Omsk time:", datetime_Omsk.strftime("%H:%M:%S"))
 
-def update_time():
+def update_time(): #Функция вывода точного омского времени
     Time_lbl2.config(text=f"{datetime.now():%H:%M:%S}")
     Time_lbl2.after(100, update_time)
 
@@ -166,7 +166,7 @@ Time_lbl1.grid(row=0, column=3, columnspan=2)
 Time_lbl2.grid(row=1, column=3, columnspan=2, rowspan=5)
 update_time()
 
-cred_lbl=Label(text='Графический интерфейс разработан:\n Зубович Н.В. Горошко В.И. \n Все права защищены ©', justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
+cred_lbl=Label(text='Графический интерфейс разработан:\n Зубович Н.В. Горошко В.И. \n Все права защищены ©', justify=CENTER, font="TimesNewRoman 15", bg="LightCyan") #Banner
 cred_lbl.grid(row=13,column=0, columnspan=3)
 
 root.mainloop()
