@@ -1,3 +1,4 @@
+# импорт необходимых для работы библиотек
 from tkinter import *
 import requests # Модуль для обработки URL
 from bs4 import BeautifulSoup # Модуль для работы с HTML
@@ -5,7 +6,7 @@ import time  # Модуль для остановки программы
 from datetime import datetime
 import pytz
 from PIL import Image, ImageTk
-
+# Получение данных о курсах валют. Автор : Горошко Владислав
 DOLLAR_RUB = 'https://www.cbr.ru/currency_base/daily/' #Ссылка на сайт центробанка РФ где указаны все курсы валют
 EURO_RUB = 'https://www.cbr.ru/currency_base/daily/' #Ссылка на сайт центробанка РФ где указаны все курсы валют
 TENGE_RUB = 'https://www.cbr.ru/currency_base/daily/' #Ссылка на сайт центробанка РФ где указаны все курсы валют
@@ -53,39 +54,39 @@ t3=b3[4:11] # Делаем срез (остаются символы с 4 по 1
 a4=str(Grivenconvert[28]).split() # Разбиваем строку на элементы
 b4=str(a4[6]) # Выбираем 6 элемент строки
 t4=b4[4:11] # Делаем срез (остаются символы с 4 по 11)
+# Создание интерфейса программы через библиотеку tkinter. Авторы : Зубович Никита, Горошко Владислав
+root = Tk() # создаём объект библиотеки tkinter
+root.title('CPI-NEWS') # прописываем название программы
 
-root = Tk()
-root.title('CPI-NEWS') #Задаем название приложения
+canv = Canvas(width=1880, height=570)  # создаём "холст" для интерфейса
+canv.place(x=0, y=0) # пишем начальные координаты появления холста
+img=Image.open("bg.png") # устанавливаем bg.png как задний фон приложения
+bg=ImageTk.PhotoImage(img) # устанавливаем bg.png как задний фон приложения
+canv.create_image(0, 0, anchor=NW, image=bg) # устанавливаем bg.png как задний фон приложения
 
-canv = Canvas(width=1880, height=570) #Задаем размеры рамки приложения
-canv.place(x=0, y=0)
-img=Image.open("bg.png") #Выбираем задний фон
-bg=ImageTk.PhotoImage(img)
-canv.create_image(0, 0, anchor=NW, image=bg)
+Value_lbl = Label(text='Курсы валют', font="TimesNewRoman 17", bg="RoyalBlue") # создаём заголовок блока с курсами валют
 
-Value_lbl = Label(text='Курсы валют', font="TimesNewRoman 17", bg="RoyalBlue") #Создание заголовка курса валют
+USD_lbl1 = Label(text='$ Курс одного доллара:', font="TimesNewRoman 15", bg="LightSkyBlue") # создаём отдельные строки
+USD_ent = Label(text=f'{t}',width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan") # для вывода курса
+USD_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")                    # каждой валюты
 
-USD_lbl1 = Label(text='$ Курс одного доллара:', font="TimesNewRoman 15", bg="LightSkyBlue") #Создание курса доллара
-USD_ent = Label(text=f'{t}',width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
-USD_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
-
-EUR_lbl1 = Label(text='€ Курс одного евро:', font="TimesNewRoman 15", bg="LightSkyBlue") #Создание курса евро
+EUR_lbl1 = Label(text='€ Курс одного евро:', font="TimesNewRoman 15", bg="LightSkyBlue")
 EUR_ent = Label(text = f'{t1}',width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
 EUR_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
 
-TEN_lbl1 = Label(text='₸ Курс ста теньге:', font="TimesNewRoman 15", bg="LightSkyBlue") #Создание курса теньге
+TEN_lbl1 = Label(text='₸ Курс ста тенге:', font="TimesNewRoman 15", bg="LightSkyBlue")
 TEN_ent = Label(text =f'{t2}',width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
 TEN_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
 
-STER_lbl1 = Label(text='£ Курс одного фунта стерлингов:', font="TimesNewRoman 15", bg="LightSkyBlue") #Создание курса фунта стерлингов
+STER_lbl1 = Label(text='£ Курс одного фунта стерлингов:', font="TimesNewRoman 15", bg="LightSkyBlue")
 STER_ent = Label(text=f'{t3}',width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
 STER_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
 
-GRI_lbl1 = Label(text='₴ Курс десяти украинских гривен:', font="TimesNewRoman 15", bg="LightSkyBlue") #Создание курса украинских гривен
+GRI_lbl1 = Label(text='₴ Курс десяти украинских гривен:', font="TimesNewRoman 15", bg="LightSkyBlue")
 GRI_ent = Label(text = f'{t4}',width=7, justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
 GRI_lbl2 = Label(text='рублей', font="TimesNewRoman 15", bg="LightSkyBlue")
 
-Value_lbl.grid(row=0, column=0, columnspan=3, pady=(5,10))
+Value_lbl.grid(row=0, column=0, columnspan=3, pady=(5,10)) # размещаем созданные ранее объекты в окне интерфейса используя .grid
 USD_lbl1.grid(row=1, column=0, sticky='e')
 USD_ent.grid(row=1, column=1)
 USD_lbl2.grid(row=1, column=2, sticky='w')
@@ -101,62 +102,66 @@ STER_lbl2.grid(row=4, column=2, sticky='w')
 GRI_lbl1.grid(row=5, column=0, sticky='e')
 GRI_ent.grid(row=5, column=1)
 GRI_lbl2.grid(row=5, column=2, sticky='w')
-
-WeatherOmsk='https://www.gismeteo.ru/' #Сайт откуда берем погоду
-headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'} #Заголовки для передачи вместе с URL
+# Блок погоды. Автор : Зубович Никита
+WeatherOmsk='https://www.accuweather.com/ru/ru/omsk/294463/weather-forecast/294463'
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'}
 
 OmWeatherFullPage = requests.get(WeatherOmsk, headers=headers)  # Вывод полной разметки HTML страницы
 OmWeathersoup = BeautifulSoup(OmWeatherFullPage.content, 'html.parser')
-OmWeatherInfo=OmWeathersoup.find_all('div', {'description gray'})
-OmWeather=OmWeathersoup.find_all('span', {'value unit unit_temperature_c'})
-x = str(OmWeather[0]).split()[4][:str(OmWeather[0]).split()[4].rfind('<span')]
-y = str(OmWeather[0]).split()[5][str(OmWeather[0]).split()[5].find(">")+1:str(OmWeather[0]).split()[5].rfind("</")]
-z = str(OmWeatherInfo)[str(OmWeatherInfo).find('>')+38:str(OmWeatherInfo).rfind('<')].lower()
-Weather_lbl = Label(text='Погода', font="TimesNewRoman 17", bg="RoyalBlue")
-Temp_lbl1 = Label(text=f'Температура в Омске на данный момент времени: ', font="TimesNewRoman 15", bg="LightSkyBlue", justify = CENTER )
-Temp_lbl2 = Label(text=f'{x+y}°С.', font='TimesNewRoman 15',bg='LightCyan')
-Temp_lbl3 = Label(text=f'В Омске {z}', font="TimesNewRoman 15", bg="LightSkyBlue", justify = CENTER)
+OmWeatherInfo=OmWeathersoup.find_all('span',{'phrase'})  # ищем информацию о погоде по тегу div со значением description gray
+OmWeather=OmWeathersoup.find_all('div', {'temp'}) # ищем информацию о температуре по тегу span со значением value unit unit temp...
+OmWeatherSub = OmWeathersoup.find_all('span',{'val_to_sub'}) # ищем информацию о десятых градуса по соответствующеему тегу
+#if str(OmWeather[0]).split()[0].find('<')==-1:
+ #   x = str(OmWeather[0]).split()[4]  # забираем из набора данных данные о температуре
+#else:
+#    x = str(OmWeather[0]).split()[4][:str(OmWeather[0]).split()[4].find('<')]
+x=str(OmWeather).split()[1][str(OmWeather).split()[1].find('>')+1:str(OmWeather).split()[1].rfind('<')]
+z = str(OmWeatherInfo).split()[1][str(OmWeatherInfo).split()[1].find('>')+1:str(OmWeatherInfo).split()[1].rfind('<')].lower() # забираем из набора данных данные о погоде и переводим строку в нижний регистр
+Weather_lbl = Label(text='Погода', font="TimesNewRoman 17", bg="RoyalBlue") # создаём заголовок для блока погоды
+Temp_lbl1 = Label(text=f'Температура в Омске на данный момент времени: ', font="TimesNewRoman 15", bg="LightSkyBlue", justify = CENTER ) # создаём поле для вывода температуры
+Temp_lbl2 = Label(text=f'{x}С.', font='TimesNewRoman 15',bg='LightCyan')
+Temp_lbl3 = Label(text=f'В Омске {z}', font="TimesNewRoman 15", bg="LightSkyBlue", justify = CENTER) # создаём поле для вывода краткого описания погоды
 Inf_lbl = Label(text= 'В Омске ', font="TimesNewRoman 15", bg = "LightSkyBlue")
 Inf_ent = Entry(width=15,justify = CENTER, font="TimesNewRoman 15", bg ="LightCyan")
-Inf_ent.insert(END, z)
+Inf_ent.insert(END, x)
 
-Weather_lbl.grid(row=7, column=0, columnspan=3, pady=(5,0))
+Weather_lbl.grid(row=7, column=0, columnspan=3, pady=(5,0)) # размещаем созданные ранее объекты в окне приложения
 Temp_lbl1.grid(row=8, column=0)
 Temp_lbl2.grid(row=8,column=1,sticky = 'w')
 Temp_lbl3.grid(row=9, column=0,sticky = 'w')
 
-
-VK_CONFIG = {
+# Блок Новостей. Автор : Горлинский Константин
+VK_CONFIG = { # создаём служебный словарь для дальнейшего взаимодействия с сервисом API VK
     "domain": "https://api.vk.com/method",
     "access_token": "d83d177784092704bd0e22d3cfc18ec180d376a8a30dc0d158b6bb7b5259d78562b8d0145585788c716e0",
     "version": "5.131",
-}   #Токен ВК
+}
 
 domain = VK_CONFIG["domain"]
 access_token = VK_CONFIG["access_token"]
 v = VK_CONFIG["version"]
-ss = -71122446
-zapros = f'{domain}/wall.get?access_token={access_token}&owner_id={ss}&count=2&v={v}'
-response = requests.get(zapros)
+ss = -71122446 # задаём ID группы ВК из которой будет браться информация
+zapros = f'{domain}/wall.get?access_token={access_token}&owner_id={ss}&count=2&v={v}' # собираем URL-адрес страницы нашего запроса
+response = requests.get(zapros) # делаем запрос по ранее собранной ссылке для получения необходимой информации
 
-News_lbl = Label(text='Новости', font="TimesNewRoman 17", bg="RoyalBlue")
-News_txt = Text(height=14, width=100, font="TimesNewRoman 15", bg="LightCyan")
-scrollbar_nws = Scrollbar(root, command=News_txt.yview)
+News_lbl = Label(text='Новости', font="TimesNewRoman 17", bg="RoyalBlue") # создаём заголовок Блока Новостей
+News_txt = Text(height=14, width=100, font="TimesNewRoman 15", bg="LightCyan") # создаём поле многострочного текста
+scrollbar_nws = Scrollbar(root, command=News_txt.yview) # создаём скролл-бар для поля многострочного текста
 
-News_txt.insert(END, response.json()['response']['items'][1]['text'])
-News_txt.insert(END, 'Читайте больше новостей в оффициальной группе ОмГТУ: https://vk.com/omskpoliteh')
-News_txt.config(state = DISABLED)
+News_txt.insert(END, response.json()['response']['items'][1]['text']) # забираем интересующую нас информацию из ответа на сделанный нами запрос и вводим её в созданное ранее текстовое поле.
+News_txt.insert(END, '\nЧитайте больше новостей в оффициальной группе ОмГТУ: https://vk.com/omskpoliteh')
+News_txt.config(state = DISABLED) # запрещаем редакцию текстового поля
 
-News_lbl.grid(row=6, column=3, pady=(5,10))
+News_lbl.grid(row=6, column=3, pady=(5,10)) # размещаем созданные ранее объекты в окне приложения.
 News_txt.grid(row=7, column=3, rowspan=9)
 scrollbar_nws.grid(row=7, column=4, rowspan=9, sticky='nws')
 News_txt.configure(yscrollcommand=scrollbar_nws.set)
-
+# Блок Времени. Автор : Демиденко Максим
 tz_Omsk = pytz.timezone('Asia/Omsk')
 datetime_Omsk = datetime.now(tz_Omsk)
 #print("Omsk time:", datetime_Omsk.strftime("%H:%M:%S"))
 
-def update_time(): #Функция вывода точного омского времени
+def update_time(): # создаём функцию о
     Time_lbl2.config(text=f"{datetime.now():%H:%M:%S}")
     Time_lbl2.after(100, update_time)
 
@@ -166,7 +171,7 @@ Time_lbl1.grid(row=0, column=3, columnspan=2)
 Time_lbl2.grid(row=1, column=3, columnspan=2, rowspan=5)
 update_time()
 
-cred_lbl=Label(text='Графический интерфейс разработан:\n Зубович Н.В. Горошко В.И. \n Все права защищены ©', justify=CENTER, font="TimesNewRoman 15", bg="LightCyan") #Banner
+cred_lbl=Label(text='Графический интерфейс разработан:\n Зубович Н.В. Горошко В.И. \n Все права защищены ©', justify=CENTER, font="TimesNewRoman 15", bg="LightCyan")
 cred_lbl.grid(row=13,column=0, columnspan=3)
 
 root.mainloop()
